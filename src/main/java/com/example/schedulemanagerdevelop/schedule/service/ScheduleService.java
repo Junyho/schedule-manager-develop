@@ -3,6 +3,7 @@ package com.example.schedulemanagerdevelop.schedule.service;
 import com.example.schedulemanagerdevelop.common.exception.ForbiddenException;
 import com.example.schedulemanagerdevelop.common.exception.NotFoundException;
 import com.example.schedulemanagerdevelop.schedule.dto.CreateSchedule;
+import com.example.schedulemanagerdevelop.schedule.dto.SchedulePageResponse;
 import com.example.schedulemanagerdevelop.schedule.dto.ScheduleResponse;
 import com.example.schedulemanagerdevelop.schedule.dto.UpdateSchedule;
 import com.example.schedulemanagerdevelop.schedule.entity.Schedule;
@@ -10,6 +11,10 @@ import com.example.schedulemanagerdevelop.schedule.repository.ScheduleRepository
 import com.example.schedulemanagerdevelop.user.entity.User;
 import com.example.schedulemanagerdevelop.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +52,16 @@ public class ScheduleService {
         );
     }
 
+    @Transactional(readOnly = true)
+    public Page<SchedulePageResponse> findSchedules(int page, int size) {
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(Sort.Direction.DESC, "modifiedAt")
+        );
+
+        return scheduleRepository.findSchedulesWithCommentCount(pageable);
+    }
 
     @Transactional(readOnly = true)
     public List<ScheduleResponse> findAll() {

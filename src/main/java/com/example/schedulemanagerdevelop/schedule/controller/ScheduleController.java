@@ -2,11 +2,13 @@ package com.example.schedulemanagerdevelop.schedule.controller;
 
 import com.example.schedulemanagerdevelop.common.exception.UnauthorizedException;
 import com.example.schedulemanagerdevelop.schedule.dto.CreateSchedule;
+import com.example.schedulemanagerdevelop.schedule.dto.SchedulePageResponse;
 import com.example.schedulemanagerdevelop.schedule.dto.ScheduleResponse;
 import com.example.schedulemanagerdevelop.schedule.dto.UpdateSchedule;
 import com.example.schedulemanagerdevelop.schedule.service.ScheduleService;
 import com.example.schedulemanagerdevelop.user.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +32,11 @@ public class ScheduleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ScheduleResponse>> findAll() {
-        return ResponseEntity.ok(scheduleService.findAll());
+    public ResponseEntity<Page<SchedulePageResponse>> findSchedules(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(scheduleService.findSchedules(page, size));
     }
 
     @GetMapping("/{id}")
