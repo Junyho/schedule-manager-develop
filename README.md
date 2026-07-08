@@ -158,3 +158,5 @@
 | **Response Body** | 댓글 목록 배열 (`id`, `content`, `username`, `createdAt`, `modifiedAt`) |
 | **Error**         | `404 Not Found` - 존재하지 않는 일정                                      |
 | **비고**            | 특정 일정에 작성된 댓글 목록을 조회                                              |
+
+![img.png](img.png)
