@@ -90,14 +90,13 @@ public class UserService {
     @Transactional
     public UserResponse update(Long id, UpdateUser updateUser) {
         User user = getElseThrow(id);
+        String encodedPassword = passwordEncoder.encode(updateUser.getPassword());
 
         user.update(
                 updateUser.getUsername(),
                 updateUser.getEmail(),
-                updateUser.getPassword()
+                encodedPassword
         );
-
-        userRepository.flush();
 
         return new UserResponse(
                 user.getId(),
