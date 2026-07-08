@@ -11,14 +11,14 @@ public class SchedulePageResponse {
     private final Long commentCount;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
-    private final String userName;
+    private final String username;
 
-    public SchedulePageResponse(String title, String content, Long commentCount, LocalDateTime createdAt, LocalDateTime modifiedAt, String userName) {
+    public SchedulePageResponse(String title, String content, Long commentCount, LocalDateTime createdAt, LocalDateTime modifiedAt, String username) {
         this.title = title;
         this.content = content;
         this.commentCount = commentCount;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-        this.userName = userName;
+        this.username = username;
     }
 }
