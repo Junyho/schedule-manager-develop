@@ -133,3 +133,28 @@
 | **Path Variable** | `userId` (Long, 필수)          |
 | **Response**      | `204 No Content`             |
 | **Error**         | `404 Not Found` - 존재하지 않는 유저 |
+
+## 4. 댓글(Comment) API
+
+### 4.1 댓글 생성
+
+| 항목                | 내용                                                                                                    |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| **URL**           | `POST /schedules/{scheduleId}/comments`                                                               |
+| **Path Variable** | `scheduleId` (Long, 필수)                                                                               |
+| **Request Body**  | `content` (String, 필수)                                                                                |
+| **Response**      | `201 Created`                                                                                         |
+| **Response Body** | `id`, `content`, `username`, `createdAt`, `modifiedAt`                                                |
+| **Error**         | `400 Bad Request` - 필수값 누락<br>`401 Unauthorized` - 로그인하지 않은 사용자<br>`404 Not Found` - 존재하지 않는 일정 또는 유저 |
+| **비고**            | 로그인 세션에 저장된 사용자를 댓글 작성자로 등록                                                                           |
+
+### 4.2 특정 일정의 댓글 목록 조회
+
+| 항목                | 내용                                                                |
+| ----------------- | ----------------------------------------------------------------- |
+| **URL**           | `GET /schedules/{scheduleId}/comments`                            |
+| **Path Variable** | `scheduleId` (Long, 필수)                                           |
+| **Response**      | `200 OK`                                                          |
+| **Response Body** | 댓글 목록 배열 (`id`, `content`, `username`, `createdAt`, `modifiedAt`) |
+| **Error**         | `404 Not Found` - 존재하지 않는 일정                                      |
+| **비고**            | 특정 일정에 작성된 댓글 목록을 조회                                              |
