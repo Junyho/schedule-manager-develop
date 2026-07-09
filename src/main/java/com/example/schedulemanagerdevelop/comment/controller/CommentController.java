@@ -4,7 +4,7 @@ import com.example.schedulemanagerdevelop.comment.dto.CommentRequest;
 import com.example.schedulemanagerdevelop.comment.dto.CommentResponse;
 import com.example.schedulemanagerdevelop.comment.service.CommentService;
 import com.example.schedulemanagerdevelop.common.exception.UnauthorizedException;
-import com.example.schedulemanagerdevelop.user.dto.SessionUser;
+import com.example.schedulemanagerdevelop.auth.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.example.schedulemanagerdevelop.user.dto;
+package com.example.schedulemanagerdevelop.auth.dto;
 
 import lombok.Getter;
 

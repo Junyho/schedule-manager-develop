@@ -6,14 +6,13 @@ import com.example.schedulemanagerdevelop.schedule.dto.SchedulePageResponse;
 import com.example.schedulemanagerdevelop.schedule.dto.ScheduleResponse;
 import com.example.schedulemanagerdevelop.schedule.dto.UpdateSchedule;
 import com.example.schedulemanagerdevelop.schedule.service.ScheduleService;
-import com.example.schedulemanagerdevelop.user.dto.SessionUser;
+import com.example.schedulemanagerdevelop.auth.dto.SessionUser;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +23,7 @@ public class ScheduleController {
 
     @PostMapping
     public ResponseEntity<ScheduleResponse> create(
-            @RequestBody CreateSchedule createSchedule,
+            @Valid @RequestBody CreateSchedule createSchedule,
             @SessionAttribute(name = "loginUser", required = false)SessionUser sessionUser
     ){
         validateLogin(sessionUser);
@@ -48,7 +47,7 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponse> update(
             @PathVariable Long id,
             @SessionAttribute(name = "loginUser", required = false)SessionUser sessionUser,
-            @RequestBody UpdateSchedule updateSchedule
+            @Valid @RequestBody UpdateSchedule updateSchedule
     ) {
         validateLogin(sessionUser);
         return ResponseEntity.ok(scheduleService.update(id, sessionUser.getId(), updateSchedule));
