@@ -42,17 +42,15 @@ public class UserService {
 
     @Transactional
     public SessionUser login(LoginUser loginUser) {
-        //login 유저를 email로 찾고
+
         User user = userRepository.findByEmail(loginUser.getEmail()).orElseThrow(
-                () -> new NotFoundException("없는 유저입니다.")
+                () -> new UnauthorizedException("이메일 또는 비밀번호가 일치하지 않습니다.")
         );
 
-        //password 검사 하고`
         if (!passwordEncoder.matches(loginUser.getPassword(),user.getPassword())) {
             throw new UnauthorizedException("이메일 또는 비밀번호가 일치하지 않습니다.");
         }
 
-        //session user 반환
         return new SessionUser(
                 user.getId(),
                 user.getUsername(),

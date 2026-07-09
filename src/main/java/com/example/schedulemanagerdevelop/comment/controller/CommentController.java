@@ -5,6 +5,7 @@ import com.example.schedulemanagerdevelop.comment.dto.CommentResponse;
 import com.example.schedulemanagerdevelop.comment.service.CommentService;
 import com.example.schedulemanagerdevelop.common.exception.UnauthorizedException;
 import com.example.schedulemanagerdevelop.auth.dto.SessionUser;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class CommentController {
 
     @PostMapping("/schedules/{scheduleId}/comments")
     public ResponseEntity<CommentResponse> create(@PathVariable Long scheduleId,
-                                                  @RequestBody CommentRequest request,
+                                                  @Valid @RequestBody CommentRequest request,
                                                   @SessionAttribute(required = false) SessionUser sessionUser) {
         if (sessionUser == null) {
             throw new UnauthorizedException("로그인이 필요합니다.");
