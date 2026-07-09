@@ -1,5 +1,6 @@
 package com.example.schedulemanagerdevelop.schedule.controller;
 
+import com.example.schedulemanagerdevelop.common.constant.SessionConst;
 import com.example.schedulemanagerdevelop.common.exception.UnauthorizedException;
 import com.example.schedulemanagerdevelop.schedule.dto.CreateSchedule;
 import com.example.schedulemanagerdevelop.schedule.dto.SchedulePageResponse;
@@ -24,7 +25,7 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<ScheduleResponse> create(
             @Valid @RequestBody CreateSchedule createSchedule,
-            @SessionAttribute(name = "loginUser", required = false)SessionUser sessionUser
+            @SessionAttribute(name = SessionConst.LOGIN_USER, required = false)SessionUser sessionUser
     ){
         validateLogin(sessionUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.create(sessionUser.getId(), createSchedule));
@@ -46,7 +47,7 @@ public class ScheduleController {
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleResponse> update(
             @PathVariable Long id,
-            @SessionAttribute(name = "loginUser", required = false)SessionUser sessionUser,
+            @SessionAttribute(name = SessionConst.LOGIN_USER, required = false)SessionUser sessionUser,
             @Valid @RequestBody UpdateSchedule updateSchedule
     ) {
         validateLogin(sessionUser);
@@ -56,7 +57,7 @@ public class ScheduleController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
             @PathVariable Long id,
-            @SessionAttribute(name = "loginUser", required = false)SessionUser sessionUser
+            @SessionAttribute(name = SessionConst.LOGIN_USER, required = false)SessionUser sessionUser
     ) {
         validateLogin(sessionUser);
         scheduleService.delete(id,sessionUser.getId());

@@ -3,6 +3,7 @@ package com.example.schedulemanagerdevelop.auth.controller;
 import com.example.schedulemanagerdevelop.auth.dto.LoginUser;
 import com.example.schedulemanagerdevelop.auth.dto.SessionUser;
 import com.example.schedulemanagerdevelop.auth.dto.SignupUser;
+import com.example.schedulemanagerdevelop.common.constant.SessionConst;
 import com.example.schedulemanagerdevelop.user.dto.UserResponse;
 import com.example.schedulemanagerdevelop.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -31,13 +33,13 @@ public class AuthController {
             HttpSession session
     ) {
         SessionUser sessionUser = userService.login(loginUser);
-        session.setAttribute("loginUser",sessionUser);
+        session.setAttribute(SessionConst.LOGIN_USER,sessionUser);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(
-            @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser,
+            @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) SessionUser sessionUser,
             HttpSession session
     ) {
         if (sessionUser == null) {
