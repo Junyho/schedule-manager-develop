@@ -103,9 +103,7 @@ public class ScheduleService {
     public ScheduleResponse update(Long id, Long userId, UpdateSchedule updateSchedule) {
         Schedule schedule = getScheduleOfThrow(id);
 
-        if (!schedule.getUser().getId().equals(userId)) {
-            throw new ForbiddenException("본인이 작성한 일정만 수정할 수 있습니다.");
-        }
+        validateOwner(userId, schedule);
 
         User user = schedule.getUser();
 
@@ -127,9 +125,7 @@ public class ScheduleService {
     public void delete(Long id, Long userId) {
         Schedule schedule = getScheduleOfThrow(id);
 
-        if (!schedule.getUser().getId().equals(userId)) {
-            throw new ForbiddenException("본인이 작성한 일정만 삭제할 수 있습니다.");
-        }
+        validateOwner(userId,schedule);
 
         scheduleRepository.delete(schedule);
     }
@@ -146,5 +142,9 @@ public class ScheduleService {
         );
     }
 
-
+    private void validateOwner(Long userId, Schedule schedule) {
+        if (!schedule.getUser().getId().equals(userId)) {
+            throw new ForbiddenException("본인이 작성한 일정만 수정할 수 있습니다.");
+        }
+    }
 }
